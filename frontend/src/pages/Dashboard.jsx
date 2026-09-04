@@ -137,7 +137,7 @@ export default function Dashboard() {
     logout();
   };
 
-  const balance = wallet ? parseFloat(wallet.balance).toFixed(8) : "0.00000000";
+  const balance = wallet ? parseFloat(wallet.balance).toFixed(2) : "0.00";
   const activeUser = profile || user;
 
   return (
@@ -157,11 +157,11 @@ export default function Dashboard() {
       >
         <div className="nav-logo">
           <motion.i
-            className="fa-solid fa-wallet"
+            className="fa-solid fa-indian-rupee-sign"
             whileHover={{ scale: 1.15, rotate: -5 }}
             transition={{ type: "spring", stiffness: 400 }}
           />
-          <span>CryptoWallet</span>
+          <span>NivaPay</span>
         </div>
         <div className="nav-profile">
           <motion.div
@@ -197,13 +197,14 @@ export default function Dashboard() {
           <motion.div
             className="glass-card balance-card"
             variants={fadeSlideUp}
-            whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}
+            whileHover={{ y: -3 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <h3>Current Balance</h3>
+            <p className="balance-kicker">Available balance</p>
+            <h3>Your Wallet</h3>
             <div className="balance-amount">
+              <span className="currency-symbol">₹</span>
               <AnimatedBalance value={balance} />
-              <span className="currency-symbol">USDT</span>
             </div>
             <motion.button
               className="btn-copy"
@@ -230,7 +231,7 @@ export default function Dashboard() {
               layout
             >
               <i className="fa-solid fa-paper-plane" />
-              <span>Send Money</span>
+              <span>Pay</span>
             </motion.button>
             <motion.button
               className={`action-tab-btn ${activeTab === "receive" ? "active" : ""}`}
@@ -266,7 +267,7 @@ export default function Dashboard() {
                 >
                   <div className="panel-title">
                     <i className="fa-solid fa-paper-plane" />
-                    <span>Send Money Instantly</span>
+                    <span>Pay anyone instantly</span>
                   </div>
                   <motion.form
                     onSubmit={handleSend}
@@ -288,18 +289,18 @@ export default function Dashboard() {
                       </div>
                     </motion.div>
                     <motion.div className="form-group" variants={fadeSlideUp}>
-                      <label>Amount (USDT)</label>
+                      <label>Amount (₹)</label>
                       <div className="input-wrapper">
                         <input
                           type="number"
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
                           placeholder="0.00"
-                          min="0.00000001"
+                          min="1"
                           step="any"
                           required
                         />
-                        <i className="fa-solid fa-dollar-sign" />
+                        <i className="fa-solid fa-indian-rupee-sign" />
                       </div>
                     </motion.div>
                     <motion.button
@@ -317,7 +318,7 @@ export default function Dashboard() {
                         </>
                       ) : (
                         <>
-                          Transfer Money{" "}
+                          Send ₹{" "}
                           <i className="fa-solid fa-arrow-right" />
                         </>
                       )}
@@ -338,7 +339,7 @@ export default function Dashboard() {
                 >
                   <div className="panel-title">
                     <i className="fa-solid fa-qrcode" />
-                    <span>Receive Digital Assets</span>
+                    <span>Receive money</span>
                   </div>
                   <div className="receive-content">
                     <motion.div
@@ -353,7 +354,7 @@ export default function Dashboard() {
                       }}
                     >
                       <img
-                        src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(activeUser?.email || "")}&color=06b6d4&bgcolor=0e1117`}
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(activeUser?.email || "")}&color=0b57d0&bgcolor=ffffff`}
                         alt="Wallet QR Code"
                       />
                     </motion.div>
@@ -368,10 +369,10 @@ export default function Dashboard() {
                         damping: 22,
                       }}
                     >
-                      <h4>Your Wallet Address</h4>
+                      <h4>Your NivaPay ID</h4>
                       <p>
-                        Share this email with the sender. Transfers are instant
-                        and free.
+                        Share this email so friends can pay you. Money lands in
+                        your wallet instantly.
                       </p>
                       <motion.button
                         className="btn-copy"
@@ -404,7 +405,7 @@ export default function Dashboard() {
           >
             <div className="panel-title">
               <i className="fa-solid fa-id-badge" />
-              <span>Current Account Profile (localStorage inspect target)</span>
+              <span>Account details</span>
             </div>
             <div className="history-table-container">
               <table>
@@ -418,25 +419,25 @@ export default function Dashboard() {
                 <tbody>
                   {[
                     {
-                      field: "localStorage.userId",
+                      field: "Account ID",
                       value: currentUserId || "None",
-                      note: "Client-controlled ID passed to backend",
+                      note: "Used to load your wallet",
                       badge: true,
                     },
                     {
-                      field: "Account Name",
+                      field: "Name",
                       value: activeUser?.name || "N/A",
-                      note: `Fetched via /api/user/profile?userId=${currentUserId}`,
+                      note: "Shown on receipts",
                     },
                     {
-                      field: "Account Email",
+                      field: "Pay ID (email)",
                       value: activeUser?.email || "N/A",
-                      note: "Recipient identifier for transfers",
+                      note: "People send money here",
                     },
                     {
-                      field: "Wallet Balance",
-                      value: `${balance} USDT`,
-                      note: `Fetched via /api/wallet?userId=${currentUserId}`,
+                      field: "Balance",
+                      value: `₹ ${balance}`,
+                      note: "Available to pay or receive",
                     },
                   ].map((row, i) => (
                     <motion.tr

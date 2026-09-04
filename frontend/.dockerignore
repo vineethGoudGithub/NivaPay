@@ -1,7 +1,9 @@
 node_modules
 dist
 dist-ssr
-*.local
+.git
+.gitignore
+.dockerignore
 .env
 .env.*
-!.env.example
+*.local

@@ -90,7 +90,7 @@ export default function Login() {
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        whileHover={{ borderColor: 'rgba(139, 92, 246, 0.4)' }}
+        whileHover={{ borderColor: 'rgba(13, 148, 136, 0.45)' }}
       >
         <motion.div
           className="auth-header"
@@ -99,13 +99,13 @@ export default function Login() {
           animate="visible"
         >
           <motion.i
-            className="fa-solid fa-wallet brand-icon"
+            className="fa-solid fa-indian-rupee-sign brand-icon"
             variants={itemVariants}
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: 'spring', stiffness: 400 }}
           />
           <motion.h2 variants={itemVariants}>Welcome Back</motion.h2>
-          <motion.p variants={itemVariants}>Sign in to access your wallet</motion.p>
+          <motion.p variants={itemVariants}>Sign in to your NivaPay account</motion.p>
         </motion.div>
 
         <motion.form

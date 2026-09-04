@@ -91,7 +91,7 @@ export default function Register() {
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        whileHover={{ borderColor: 'rgba(139, 92, 246, 0.4)' }}
+        whileHover={{ borderColor: 'rgba(13, 148, 136, 0.45)' }}
       >
         <motion.div
           className="auth-header"
@@ -100,13 +100,13 @@ export default function Register() {
           animate="visible"
         >
           <motion.i
-            className="fa-solid fa-wallet brand-icon"
+            className="fa-solid fa-indian-rupee-sign brand-icon"
             variants={itemVariants}
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: 'spring', stiffness: 400 }}
           />
           <motion.h2 variants={itemVariants}>Create Account</motion.h2>
-          <motion.p variants={itemVariants}>Set up your wallet in seconds</motion.p>
+          <motion.p variants={itemVariants}>Create your NivaPay wallet in seconds</motion.p>
         </motion.div>
 
         <motion.form
@@ -122,7 +122,7 @@ export default function Register() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. John Doe"
+                placeholder="e.g. Priya Sharma"
                 required
               />
               <i className="fa-regular fa-user" />

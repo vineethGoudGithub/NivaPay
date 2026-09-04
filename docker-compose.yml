@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Spring Boot Backend (Java 17 + Spring Boot 3 + NeonDB PostgreSQL)
+  # ============================================================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nivapay-backend
+    restart: unless-stopped
+    ports:
+      - "6060:6060"
+    env_file:
+      - .env
+    environment:
+      PORT: 6060
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-update}
+    networks:
+      - nivapay-network
+
+  # ============================================================================
+  # React Frontend (React 18 + Vite + Tailwind/Modern UI + Nginx)
+  # ============================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE: ${VITE_API_BASE:-http://localhost:6060/api}
+    container_name: nivapay-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - nivapay-network
+
+networks:
+  nivapay-network:
+    driver: bridge

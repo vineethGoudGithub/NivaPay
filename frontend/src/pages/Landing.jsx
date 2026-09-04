@@ -50,7 +50,7 @@ function ParticleField() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
             const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
-            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+            ctx.strokeStyle = `rgba(26, 115, 232, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -63,7 +63,7 @@ function ParticleField() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139, 92, 246, ${p.opacity})`;
+        ctx.fillStyle = `rgba(26, 115, 232, ${p.opacity})`;
         ctx.fill();
         p.x += p.vx;
         p.y += p.vy;
@@ -124,7 +124,7 @@ function MiniParticles() {
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < DIST) {
             const a = (1 - d / DIST) * 0.2;
-            ctx.strokeStyle = `rgba(6, 182, 212, ${a})`;
+            ctx.strokeStyle = `rgba(249, 171, 0, ${a})`;
             ctx.lineWidth = 0.4;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -137,7 +137,7 @@ function MiniParticles() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(6, 182, 212, 0.35)`;
+        ctx.fillStyle = `rgba(249, 171, 0, 0.45)`;
         ctx.fill();
         p.x += p.vx;
         p.y += p.vy;
@@ -196,27 +196,27 @@ function AnimatedCounter({ target, suffix = "", decimals = 0, duration = 2 }) {
 const features = [
   {
     icon: "fa-solid fa-bolt",
-    title: "Instant Transfers",
-    desc: "Zero-fee peer-to-peer transfers in real time.",
-    color: "#8b5cf6",
+    title: "Pay in Seconds",
+    desc: "Send rupees to anyone with an email — instant and free.",
+    color: "#0d9488",
   },
   {
     icon: "fa-solid fa-shield-halved",
-    title: "Bank-Grade Security",
-    desc: "End-to-end encryption keeps your assets safe.",
-    color: "#06b6d4",
-  },
-  {
-    icon: "fa-solid fa-chart-line",
-    title: "Live Analytics",
-    desc: "Track portfolio performance with real-time data.",
-    color: "#10b981",
-  },
-  {
-    icon: "fa-solid fa-globe",
-    title: "Multi-Chain Support",
-    desc: "Manage assets across multiple blockchains.",
+    title: "Protected Wallet",
+    desc: "Your money stays locked behind your account credentials.",
     color: "#f59e0b",
+  },
+  {
+    icon: "fa-solid fa-qrcode",
+    title: "Scan to Receive",
+    desc: "Share a QR code and get paid without sharing bank details.",
+    color: "#ea580c",
+  },
+  {
+    icon: "fa-solid fa-mobile-screen",
+    title: "Works Everywhere",
+    desc: "Pay from phone or desktop with the same NivaPay wallet.",
+    color: "#0b57d0",
   },
 ];
 
@@ -265,14 +265,14 @@ function StatsBar() {
       target: 12,
       suffix: "K+",
       icon: "fa-solid fa-users",
-      color: "#8b5cf6",
+      color: "#0d9488",
     },
     {
       label: "Transactions",
       target: 1.2,
       suffix: "M+",
       icon: "fa-solid fa-arrow-right-arrow-left",
-      color: "#06b6d4",
+      color: "#ea580c",
       decimals: 1,
     },
     {
@@ -284,10 +284,10 @@ function StatsBar() {
       decimals: 1,
     },
     {
-      label: "Countries",
-      target: 80,
+      label: "Cities",
+      target: 180,
       suffix: "+",
-      icon: "fa-solid fa-earth-americas",
+      icon: "fa-solid fa-city",
       color: "#f59e0b",
     },
   ];
@@ -414,7 +414,7 @@ function AuthForm({ tab = "register" }) {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. John Doe"
+                    placeholder="e.g. Priya Sharma"
                     autoComplete="name"
                     required
                   />
@@ -493,7 +493,7 @@ function AuthForm({ tab = "register" }) {
               whileHover={{
                 scale: 1.02,
                 y: -2,
-                boxShadow: "0 8px 28px rgba(124, 58, 237, 0.45)",
+                boxShadow: "0 8px 28px rgba(13, 148, 136, 0.4)",
               }}
               whileTap={{ scale: 0.97 }}
             >
@@ -536,8 +536,8 @@ function Navbar() {
     >
       <div className="nav-inner">
         <div className="nav-brand">
-          <i className="fa-solid fa-wallet" />
-          <span>CryptoWallet</span>
+          <i className="fa-solid fa-indian-rupee-sign" />
+          <span>NivaPay</span>
         </div>
         <div className="nav-links">
           <a href="#features">Features</a>
@@ -568,11 +568,11 @@ function LandingFooter() {
     >
       <div className="footer-inner">
         <div className="footer-brand">
-          <i className="fa-solid fa-wallet" />
-          <span>CryptoWallet</span>
+          <i className="fa-solid fa-indian-rupee-sign" />
+          <span>NivaPay</span>
         </div>
         <p className="footer-copy">
-          &copy; 2026 CryptoWallet. All rights reserved.
+          &copy; 2026 NivaPay. Payments made simple.
         </p>
         <div className="footer-links">
           <a href="#">Privacy</a>
@@ -630,9 +630,9 @@ export default function Landing() {
                   className="brand-icon-inner"
                   animate={{
                     boxShadow: [
-                      "0 0 24px rgba(139,92,246,0.2)",
-                      "0 0 44px rgba(139,92,246,0.35)",
-                      "0 0 24px rgba(139,92,246,0.2)",
+                      "0 0 24px rgba(13,148,136,0.25)",
+                      "0 0 44px rgba(245,158,11,0.35)",
+                      "0 0 24px rgba(13,148,136,0.25)",
                     ],
                   }}
                   transition={{
@@ -641,26 +641,26 @@ export default function Landing() {
                     ease: "easeInOut",
                   }}
                 >
-                  <i className="fa-brands fa-bitcoin" />
+                  <i className="fa-solid fa-indian-rupee-sign" />
                 </motion.div>
               </div>
 
               <MiniParticles />
 
               <h1 className="brand-title">
-                Crypto <span className="gradient-text">Wallet</span>
+                Pay anyone with <span className="gradient-text">NivaPay</span>
               </h1>
 
               <p className="brand-subtitle">
-                Manage your decentralized crypto assets, view transaction logs,
-                and perform instant zero-fee transfers — all in one place.
+                A simple rupee wallet for everyday payments. Send, receive, and
+                track money instantly — no bank hopping, no crypto jargon.
               </p>
 
               <div className="trust-badges">
                 {[
-                  { icon: "fa-solid fa-lock", text: "Encrypted" },
-                  { icon: "fa-solid fa-check-double", text: "Verified" },
-                  { icon: "fa-solid fa-bolt", text: "Fast" },
+                  { icon: "fa-solid fa-lock", text: "Secure" },
+                  { icon: "fa-solid fa-bolt", text: "Instant" },
+                  { icon: "fa-solid fa-percent", text: "Zero fee" },
                 ].map((b, i) => (
                   <motion.div
                     key={b.text}
@@ -681,6 +681,12 @@ export default function Landing() {
             </div>
           </motion.div>
         </motion.div>
+        <div id="features">
+          <FeatureCards />
+        </div>
+        <div id="stats">
+          <StatsBar />
+        </div>
       </div>
 
       {/* ── Right Panel ── */}
@@ -710,7 +716,7 @@ export default function Landing() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.16 }}
               >
-                Enter details below to create your wallet
+                Open your NivaPay wallet in under a minute
               </motion.p>
             </div>
 

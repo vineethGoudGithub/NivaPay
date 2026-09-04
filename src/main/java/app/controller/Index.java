@@ -14,7 +14,7 @@ public class Index {
     public Map<String, String> status() {
         return Map.of(
                 "status", "running",
-                "message", "Crypto Wallet API is healthy"
+                "message", "NivaPay API is healthy"
         );
     }
 }

@@ -1,30 +1,32 @@
-# Use Maven image to build the application
-FROM maven:3.9.11-eclipse-temurin-21 AS build
-
-# Set working directory
+# ==============================================================================
+# Stage 1: Build the Spring Boot application using Maven
+# ==============================================================================
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy pom.xml and download dependencies
+# Cache Maven dependencies layer
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# Copy source code
+# Copy source code and package application
 COPY src ./src
-
-# Build the application (skip tests for faster build)
 RUN mvn clean package -DskipTests
 
-# Use JDK image to run the application
-FROM eclipse-temurin:21-jre
-
-# Set working directory
+# ==============================================================================
+# Stage 2: Runtime image with Eclipse Temurin JRE
+# ==============================================================================
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copy the jar file from build stage
+# Default environment variables
+ENV PORT=6060
+ENV SPRING_PROFILES_ACTIVE=prod
+
+# Copy compiled JAR from builder stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port 8080
-EXPOSE 8080
+# Expose the configured backend application port
+EXPOSE 6060
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the Spring Boot application
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]

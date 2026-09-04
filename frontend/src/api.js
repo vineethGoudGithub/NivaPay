@@ -1,4 +1,4 @@
-const API_BASE = 'https://wallet-auth-rijd.onrender.com/api';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:6060/api';
 
 function getUserId() {
   return localStorage.getItem('userId');
@@ -19,25 +19,37 @@ async function request(method, path, body = null) {
     options.body = JSON.stringify(body);
   }
 
-  const res = await fetch(`${API_BASE}${path}`, options);
-  const data = await res.json();
+  let res;
+  try {
+    res = await fetch(`${API_BASE}${path}`, options);
+  } catch {
+    throw new Error(`Cannot reach backend on ${API_BASE}`);
+  }
+
+  const text = await res.text();
+  let data = {};
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error(res.ok ? 'Invalid response from backend' : `Backend error (${res.status})`);
+    }
+  }
 
   if (!res.ok) {
-    throw new Error(data.error || 'Request failed');
+    throw new Error(data.error || data.message || 'Request failed');
   }
 
   return data;
 }
 
 export const api = {
-  // Auth
   signup: (name, email, password) =>
     request('POST', '/auth/signup', { name, email, password }),
 
   login: (email, password) =>
     request('POST', '/auth/login', { email, password }),
 
-  // Wallet
   getWallet: (userId) => {
     const id = userId !== undefined && userId !== null ? userId : getUserId();
     return request('GET', `/wallet?userId=${id}`);
@@ -48,13 +60,11 @@ export const api = {
     return request('POST', `/wallet/send?userId=${id}`, { recipientEmail, amount });
   },
 
-  // User Profile
   getProfile: (userId) => {
     const id = userId !== undefined && userId !== null ? userId : getUserId();
     return request('GET', `/user/profile?userId=${id}`);
   },
 
-  // User ID management in localStorage
   setUserId,
   getUserId,
   removeUserId,

@@ -1,0 +1,15 @@
+target/
+!**/target/*.jar
+.git
+.gitignore
+.dockerignore
+.mvn
+mvnw
+mvnw.cmd
+.idea
+.vscode
+*.iml
+frontend/
+node_modules/
+dist/
+HELP.md
