@@ -7,8 +7,9 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:6060',
+        target: 'https://jwtapplication.onrender.com',
         changeOrigin: true,
+        secure: false,
       },
     },
   },

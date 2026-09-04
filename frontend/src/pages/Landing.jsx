@@ -652,15 +652,16 @@ export default function Landing() {
               </h1>
 
               <p className="brand-subtitle">
-                A simple rupee wallet for everyday payments. Send, receive, and
-                track money instantly — no bank hopping, no crypto jargon.
+                A high-speed crypto & fiat wallet for modern digital finance. Send, receive,
+                swap tokens, stake for yield, connect Web3, and track live market prices seamlessly.
               </p>
 
               <div className="trust-badges">
                 {[
-                  { icon: "fa-solid fa-lock", text: "Secure" },
-                  { icon: "fa-solid fa-bolt", text: "Instant" },
-                  { icon: "fa-solid fa-percent", text: "Zero fee" },
+                  { icon: "fa-solid fa-wallet", text: "Web3 Ready" },
+                  { icon: "fa-solid fa-repeat", text: "DEX Swap" },
+                  { icon: "fa-solid fa-chart-line", text: "Live Markets" },
+                  { icon: "fa-solid fa-bolt", text: "Instant Pay" },
                 ].map((b, i) => (
                   <motion.div
                     key={b.text}
